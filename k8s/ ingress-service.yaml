@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     certmanager.k8s.io/cluster-issuer: 'letsencrypt-prod'
-    nginx.ingress.kubernates.io/ssl-redirect: 'true'
+    nginx.ingress.kubernates.io/ssl-redirect: 'false'
     # UPDATE THIS LINE ABOVE
 spec:
   tls:
@@ -40,4 +40,4 @@ spec:
             # UPDATE THIS LINE ABOVE
             backend:
               serviceName: server-cluster-ip-service
-              servicePort: 5000              
+              servicePort: 5000
