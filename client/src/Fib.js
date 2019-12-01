@@ -5,7 +5,7 @@ class Fib extends Component {
   state = {
     seenIndexes: [],
     values: {},
-    index: '',
+    index: ''
   };
 
   componentDidMount() {
@@ -21,7 +21,7 @@ class Fib extends Component {
   async fetchIndexes() {
     const seenIndexes = await axios.get('/api/values/all');
     this.setState({
-      seenIndexes: seenIndexes.data,
+      seenIndexes: seenIndexes.data
     });
   }
 
@@ -29,7 +29,7 @@ class Fib extends Component {
     event.preventDefault();
 
     await axios.post('/api/values', {
-      index: this.state.index,
+      index: this.state.index
     });
     this.setState({ index: '' });
   };
