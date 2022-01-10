@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t dollypizzle/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true dollypizzle/react-test npm test -- --coverage
+
+after_success:
+  # building for each docker image
+  - docker build -t dollypizzle/multi-client ./client
+  - docker build -t dollypizzle/multi-nginx ./nginx
+  - docker build -t dollypizzle/multi-server ./server
+  - docker build -t dollypizzle/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push dollypizzle/multi-client
+  - docker push dollypizzle/multi-nginx
+  - docker push dollypizzle/multi-server
+  - docker push dollypizzle/multi-worker
