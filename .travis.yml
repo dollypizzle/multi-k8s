@@ -21,3 +21,16 @@ after_success:
   - docker push dollypizzle/multi-nginx
   - docker push dollypizzle/multi-server
   - docker push dollypizzle/multi-worker
+
+deploy:
+  provider: el asticbeanstalk
+  region: ap-southeast-2
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-ap-southeast-2-092749212479
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
