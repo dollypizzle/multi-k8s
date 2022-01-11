@@ -1,36 +1,9 @@
 sudo: required
 services:
   - docker
-
 before_install:
-  - docker build -t dollypizzle/react-test -f ./client/Dockerfile.dev ./client
-
-script:
-  - docker run -e CI=true dollypizzle/react-test npm test -- --coverage
-
-after_success:
-  # building for each docker image
-  - docker build -t dollypizzle/multi-client ./client
-  - docker build -t dollypizzle/multi-nginx ./nginx
-  - docker build -t dollypizzle/multi-server ./server
-  - docker build -t dollypizzle/multi-worker ./worker
-  # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those images and push them to docker hub
-  - docker push dollypizzle/multi-client
-  - docker push dollypizzle/multi-nginx
-  - docker push dollypizzle/multi-server
-  - docker push dollypizzle/multi-worker
-
-deploy:
-  provider: el asticbeanstalk
-  region: ap-southeast-2
-  app: multi-docker
-  env: MultiDocker-env
-  bucket_name: elasticbeanstalk-ap-southeast-2-092749212479
-  bucket_path: docker-multi
-  on:
-    branch: master
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: $AWS_SECRET_KEY
+  - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in service-account.json.enc -out service-account.json -d
+  - curl https://sdk.cloud.google.com | bash > /dev/null;curl https://sdk.cloud.google.com | bash > /dev/null;
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl
+  - gcloud auth activate-service-account --key-file service-account.json
