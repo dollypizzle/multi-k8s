@@ -3,7 +3,7 @@ kind: Certificate
 metadata:
   name: dollypizzle-multi-k8s-tls
 spec:
-  secretName: dollypizzle-multi-k8s
+  secretName: dollypizzle-multi-k8s-tk
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
