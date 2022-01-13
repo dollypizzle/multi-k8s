@@ -18,12 +18,12 @@ spec:
     - host: dollypizzle-multi-k8s.tk
       http:
         paths:
-          - path: /?(.*)
+          - path: /
             # UPDATE THIS LINE ABOVE
             backend:
               serviceName: client-cluster-ip-service
               servicePort: 3000
-          - path: /api/?(.*)
+          - path: /api/
             # UPDATE THIS LINE ABOVE
             backend:
               serviceName: server-cluster-ip-service
@@ -31,12 +31,12 @@ spec:
     - host: www.dollypizzle-multi-k8s.tk
       http:
         paths:
-          - path: /?(.*)
+          - path: /
             # UPDATE THIS LINE ABOVE
             backend:
               serviceName: client-cluster-ip-service
               servicePort: 3000
-          - path: /api/?(.*)
+          - path: /api/
             # UPDATE THIS LINE ABOVE
             backend:
               serviceName: server-cluster-ip-service
